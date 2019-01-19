@@ -1,0 +1,22 @@
+{
+  "name": "hoc_tu_vung",
+  "version": "1.0.0",
+  "description": "Day la ung dung hoc hoc tu vung voi nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dangduylong96/H-c-t-v-ng-Nodejs-.git"
+  },
+  "author": "Duy Long 96",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dangduylong96/H-c-t-v-ng-Nodejs-/issues"
+  },
+  "homepage": "https://github.com/dangduylong96/H-c-t-v-ng-Nodejs-#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
