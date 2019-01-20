@@ -17,3 +17,6 @@ span.error{
   color: black;
   text-decoration: none;
 }
+td.action{
+	font-size: 27px;
+}

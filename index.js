@@ -7,14 +7,20 @@ var configs = require('config');
 const port = configs.get('server.port');
 //Setting template ejs
 var bodyParse = require('body-parser');
-app.use(bodyParse.urlencoded());
+app.use(bodyParse.urlencoded({
+	extended: true
+}));
+app.use(bodyParse.json());
 app.set('views', './App/Views');
 app.set('view engine', 'ejs');
 app.use('/static', express.static(__dirname + '/Assets'));
 app.use(session({
 	secret: configs.get('server.secretSession'),
 	resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+  	maxAge: 60000
+  }
 }));
 
 //Route

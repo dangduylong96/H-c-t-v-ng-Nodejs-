@@ -4,30 +4,34 @@
       <button style="margin-bottom: 10px" type="button" class="btn btn-default" onclick="history.go(-1)">Back</button>
       <div class="form-group">
         <label>Từ tiếng anh:</label>
-        <input type="text" class="form-control" placeholder="Nhập từ tiếng anh" name="english_word" required>
+        <input type="text" class="form-control" placeholder="Nhập từ tiếng anh" name="english_word" required value="<%- data.english_word %>">
       </div>
       <div class="form-group">
         <label>Từ tiếng việt:</label>
-        <input type="text" class="form-control" placeholder="Nhập từ tiếng việt" name="vietnam_word" required>
+        <input type="text" class="form-control" placeholder="Nhập từ tiếng việt" name="vietnam_word" required value="<%- data.vietnam_word %>">
       </div>
       <div class="form-group">
         <label>Từ tiếng việt hình dung:</label>
-        <input type="text" class="form-control" placeholder="Nhập từ tiếng việt hình dung" name="vietnam_sub_word">
+        <input type="text" class="form-control" placeholder="Nhập từ tiếng việt hình dung" name="vietnam_sub_word" value="<%- data.vietname_sub_word %>">
       </div>
       <div class="form-group">
         <label">Hình ảnh:</label>
         <br>
+        <% if(data.img != ''){ %>
+        <img id="blah" style="margin-bottom: 10px" src="/static/images/words/<%- data.img %>" width="200" height="200" />
+        <% }else{ %>
         <img id="blah" style="margin-bottom: 10px" src="/static/images/systems/no_image.png" width="200" height="200" />
+        <% } %>
         <input id="image-post" type="file" class="form-control" name="img">
       </div>
       <div class="form-group">
         <label for="pwd">Trạng thái:</label>
         <select class="form-control" name="status">
-          <option value="1">Hiện</option>
-          <option value="0">Ân</option>
+          <option value="1" <%= data.status == 1 ? 'selected' : '' %>>Hiện</option>
+          <option value="0" <%= data.status == 0 ? 'selected' : '' %>>Ân</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary">Thêm</button>
+      <button type="submit" class="btn btn-primary">Cập nhập</button>
     </form>
   </div>
 </div>

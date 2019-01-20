@@ -1,44 +1,54 @@
 var formidable = require('formidable');
+var fs = require('fs');
 var randomstring = require("randomstring");
+var userModel = require('../Models/Words');
 
 exports.listAction = (req, res) => {
 	res.render('users/index', {path: './list_action'});
 	res.end();
 }
 exports.listWord = (req, res) => {
-	res.render('users/index', {path: './list_word'});
-	res.end();
+	var userId = req.session.userId;
+	userId = 1;
+	var listWords = userModel.listWords(userId);
+	listWords.then(data => {
+		res.render('users/index', {path: './list_word', data: data});
+		res.end();
+	})
+	.catch(err => {
+		console.log(err);
+	})
+	
 }
 exports.addWord = (req, res) => {
 	res.render('users/index', {path: './add_word'});
 }
 exports.postAddWord = (req, res) => {
-	console.log('asdasd');
 	var body = req.body;
-	var englishWord = body.english_word;
-	var vietnamWord = body.vietnam_word;
-	var vietnamSubWord = body.vietnam_sub_word;
-	var status = body.status;
+	var userId = req.session.userId;
 	//Upload img
 	var form = new formidable.IncomingForm();
-	console.log('bbb');
+	var imgName = '';
 	form.parse(req, function (err, fields, files) {
-		console.log('aa');
     var oldpath = files.img.path;
-    var newpath = __dirname + '/Assets/images/words/' + files.img.name;
-    fs.rename(oldpath, newpath, function (err) {
-      if (err) throw err;
-      res.write('File uploaded and moved!');
-      res.end();
-    });
+    if(files.img.name != ''){
+    	imgName = randomstring.generate(10) + files.img.name
+	    var newpath = __dirname + '/../../Assets/images/words/' + imgName;
+	    fs.rename(oldpath, newpath, function (err) {
+	      if (err) throw err;
+	    });
+    }
+    //Insert
+		userModel.insertWord(userId, fields, imgName);
+		res.redirect('/user/danh-sach-tu');
 	});
-	// console.log(img);
-	// if(img != 'undefined'){
-	// 	res.write('bbb');
-	// }
-	// res.write('aaa');
-	res.end();
-	// if(locals.img){
-	// 	console.log('a');
-	// }
+}
+
+exports.editWord = (req, res) => {
+	var wordId = req.query.id;
+	userModel.getWord(wordId)
+	.then(data => {
+		data = data[0];
+		res.render('users/index', {path: './edit_word', data: data});
+	})
 }

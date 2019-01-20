@@ -5,6 +5,7 @@ var controller = require('../App/Controllers/UserController');
 route.get('/phuong-thuc-hoc', controller.listAction);
 route.get('/danh-sach-tu', controller.listWord);
 route.get('/them-tu', controller.addWord);
-route.post('/them-tu1', controller.postAddWord);
+route.post('/them-tu', controller.postAddWord);
+route.get('/sua-tu', controller.editWord);
 
 module.exports = route;

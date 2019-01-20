@@ -4,31 +4,36 @@
 <table id="example" class="table table-bordered table-hover" style="width:100%">
   <thead>
       <tr>
-          <th>Từ</th>
-          <th>Người sở hữu</th>
+          <th>Từ TA</th>
+          <th>Từ TV</th>
           <th>Hình ảnh</th>
-          <th>Ngày tạo</th>
           <th>Trang thái</th>
+          <th>Người sở hữu</th>
           <th>Thao tác</th>
       </tr>
   </thead>
   <tbody>
+    <% for(var i = 0; i < data.length; i++){ %>
       <tr>
-          <td>Tiger Nixon</td>
-          <td>System Architect</td>
-          <td>Edinburgh</td>
-          <td>61</td>
-          <td>2011/04/25</td>
-          <td>$320,800</td>
+          <td><%- data[i].english_word %></td>
+          <td><%- data[i].vietnam_word %></td>
+          <% if(data[i].img == ''){ %>
+          <td><img src="/static/images/systems/no_image.png" with="60" height="60"/></td>
+          <% }else {%>
+          <td><img src="/static/images/words/<%- data[i].img %>" with="60" height="60"/></td>
+          <% }%>
+          <% if(data[i].status == 0){ %>
+          <td style="color: red; font-weight: bold">Ân</td>
+          <% }else {%>
+          <td>Hiện</td>
+          <% }%>
+          <td>Duy Long</td>
+          <td class="action">
+            <a href="/user/sua-tu?id=<%- data[i].id %>"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-trash" style="color: red"></span></a>
+          </td>
       </tr>
-      <tr>
-          <td>Garrett Winters</td>
-          <td>Accountant</td>
-          <td>Tokyo</td>
-          <td>63</td>
-          <td>2011/07/25</td>
-          <td>$170,750</td>
-      </tr>
+    <%}%>
   </tbody>
 </table>
 <script type="text/javascript">
