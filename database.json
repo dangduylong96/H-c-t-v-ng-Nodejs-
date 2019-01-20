@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "driver": "mysql",
+    "user": "root",
+    "password": "bongma00",
+    "database": "hoc_tu_vung"
+  },
+  "prod": {
+    "driver": "mysql",
+    "user": "root",
+    "password": "bongma00",
+    "database": "hoc_tu_vung"
+  }
+}

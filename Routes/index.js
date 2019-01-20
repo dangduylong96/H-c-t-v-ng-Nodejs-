@@ -1,12 +1,14 @@
 var express = require('express');
 var route = express.Router();
+var controller = require('../App/Controllers/Controller');
+var checkUser = require('../App/Middleware/CheckLoginMiddleware');
 
 //User
-route.use('/user', require('./user'));
-//Trang chu login
-route.get('/', (req, res) => {
-	res.render('login');
-	res.end();
-})
+route.use('/user', checkUser.checkUser ,require('./user'));
+
+//Dang nhap
+route.route('/')
+.get(controller.getLogin)
+.post(controller.postLogin)
 
 module.exports = route;

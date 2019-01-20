@@ -19,7 +19,15 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
+    "db-migrate": "^0.11.5",
+    "db-migrate-mysql": "^1.1.10",
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "formidable": "^1.2.1",
+    "mysql": "^2.16.0",
+    "q": "^1.5.1",
+    "randomstring": "^1.1.5",
+    "sha1": "^1.1.1"
   }
 }

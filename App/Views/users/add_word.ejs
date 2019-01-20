@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-sm-6">
+    <form action="/user/them-tu1" method="post" enctype="multipart/form-data">
+      <button style="margin-bottom: 10px" type="button" class="btn btn-default" onclick="history.go(-1)">Back</button>
+      <div class="form-group">
+        <label>Từ tiếng anh:</label>
+        <input type="text" class="form-control" placeholder="Nhập từ tiếng anh" name="english_word" required value="hello">
+      </div>
+      <div class="form-group">
+        <label>Từ tiếng việt:</label>
+        <input type="text" class="form-control" placeholder="Nhập từ tiếng việt" name="vietnam_word" required value="Xin chào">
+      </div>
+      <div class="form-group">
+        <label>Từ tiếng việt hình dung:</label>
+        <input type="text" class="form-control" placeholder="Nhập từ tiếng việt hình dung" name="vietnam_sub_word">
+      </div>
+      <div class="form-group">
+        <label">Hình ảnh:</label>
+        <br>
+        <img id="blah" style="margin-bottom: 10px" src="/static/images/systems/no_image.png" width="200" height="200" />
+        <input id="image-post" type="file" class="form-control" name="img">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Trạng thái:</label>
+        <select class="form-control" name="status">
+          <option value="1">Hiện</option>
+          <option value="0">Ân</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Thêm</button>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $('#blah').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $("#image-post").change(function() {
+    readURL(this);
+  });
+</script>
