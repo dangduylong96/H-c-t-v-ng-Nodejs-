@@ -30,7 +30,7 @@
           <td>Duy Long</td>
           <td class="action">
             <a href="/user/sua-tu?id=<%- data[i].id %>"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-trash" style="color: red"></span></a>
+            <a href="/user/xoa-tu?id=<%- data[i].id %>"><span class="glyphicon glyphicon-trash" style="color: red"></span></a>
           </td>
       </tr>
     <%}%>
@@ -38,6 +38,8 @@
 </table>
 <script type="text/javascript">
 	$(document).ready(function() {
-    $('#example').DataTable();
+    $('#example').DataTable({
+      order: []
+    });
 	});
 </script>

@@ -7,5 +7,12 @@ route.get('/danh-sach-tu', controller.listWord);
 route.get('/them-tu', controller.addWord);
 route.post('/them-tu', controller.postAddWord);
 route.get('/sua-tu', controller.editWord);
+route.post('/sua-tu', controller.postEditWord);
+route.get('/xoa-tu', controller.deleteWord);
+//Luyen
+route.get('/luyen-anh-viet', controller.learnEnglishToViet);
+route.get('/luyen-viet-anh', controller.learnVietToEnglish);
+
+
 
 module.exports = route;

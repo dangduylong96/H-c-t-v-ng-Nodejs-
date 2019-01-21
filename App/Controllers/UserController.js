@@ -9,7 +9,6 @@ exports.listAction = (req, res) => {
 }
 exports.listWord = (req, res) => {
 	var userId = req.session.userId;
-	userId = 1;
 	var listWords = userModel.listWords(userId);
 	listWords.then(data => {
 		res.render('users/index', {path: './list_word', data: data});
@@ -50,5 +49,62 @@ exports.editWord = (req, res) => {
 	.then(data => {
 		data = data[0];
 		res.render('users/index', {path: './edit_word', data: data});
+	})
+}
+
+exports.postEditWord = (req, res) => {
+	var wordId = req.query.id;
+	var form = new formidable.IncomingForm();
+	userModel.getWord(wordId)
+	.then(data => {
+		data = data[0];
+		form.parse(req, function (err, fields, files) {
+	    var oldpath = files.img.path;
+	    var imgName = '';
+	    if(files.img.name != ''){
+	    	imgName = randomstring.generate(10) + files.img.name
+		    var newpath = __dirname + '/../../Assets/images/words/' + imgName;
+		    fs.rename(oldpath, newpath, function (err) {
+		      if (err) throw err;
+		    });
+		    //Delete old file
+	    	var currentPath = data.img;
+	    	if(currentPath != ''){
+		    	fs.unlink(__dirname + '/../../Assets/images/words/' + currentPath, function(){console.log('done')})
+	    	}
+	    }
+	    userModel.editWord(wordId, fields, imgName);
+			res.redirect('/user/danh-sach-tu');
+		});
+	})
+}
+
+exports.deleteWord = (req, res) => {
+	var wordId = req.query.id;
+	userModel.getWord(wordId)
+	.then(data => {
+		data = data[0];
+  	userModel.deleteWord(wordId, data.img);
+		res.redirect('/user/danh-sach-tu');
+	})
+}
+
+exports.learnEnglishToViet = (req, res) => {
+	var userId = req.session.userId;
+	userModel.getWordForUser(userId)
+	.then(data => {
+		var arrayData = JSON.parse(JSON.stringify(data));
+		res.render('users/index', {path: './learn_english_to_viet', arrayData: arrayData});
+		res.end();
+	})
+}
+
+exports.learnVietToEnglish = (req, res) => {
+	var userId = req.session.userId;
+	userModel.getWordForUser(userId)
+	.then(data => {
+		var arrayData = JSON.parse(JSON.stringify(data));
+		res.render('users/index', {path: './learn_viet_to_english', arrayData: arrayData});
+		res.end();
 	})
 }

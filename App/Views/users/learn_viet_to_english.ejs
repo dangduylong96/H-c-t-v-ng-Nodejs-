@@ -1,0 +1,98 @@
+<div class="row">
+	<h1 id="viet-nam-word"></h1>
+</div>
+<div class="row">
+	<div class="panel-group" id="accordion">
+    <div class="panel panel-primary">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#help-img" style="cursor: pointer;">
+        <h4 class="panel-title">
+          Gợi ý hình ảnh
+        </h4>
+      </div>
+      <div id="help-img" class="panel-collapse collapse">
+        <div class="panel-body" style="text-align: center;">
+        	<img src="" width="300" height="300">
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion1" href="#help-viet-sub" style="cursor: pointer;">
+        <h4 class="panel-title">
+          Gợi ý tiếng việt trừu tượng
+        </h4>
+      </div>
+      <div id="help-viet-sub" class="panel-collapse collapse">
+        <div class="panel-body">
+        	<h3><b id="viet-sub"></b></h3>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-success">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion2" href="#help-viet" style="cursor: pointer;">
+        <h4 class="panel-title">
+          Nghĩa tiếng anh
+        </h4>
+      </div>
+      <div id="help-viet" class="panel-collapse collapse">
+        <div class="panel-body">
+        	<h3><b id="english-word"></b></h3>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <div class="col-sm-12">
+  	<form id="form-check" class="form-inline" action="/" onsubmit="return false">
+		  <div class="form-group">
+		    <label>Nhập tiếng anh:</label>
+		    <input type="text" class="form-control" id="write-english">
+		  </div>
+		  <button type="button" class="btn btn-default" onclick="checkWord()">Check</button>
+		</form>
+  </div>
+  <br>
+  <div class="row" style="text-align: center;">
+  	<button class="btn btn-danger btn-lg" onclick="changeWord()"><span class="glyphicon glyphicon-refresh"></span> Đổi từ</button>
+  </div>
+</div>
+<script type="text/javascript">
+	var listWord = <%- JSON.stringify( arrayData )%>;
+	var lengthList = listWord.length;
+	var oldRandom = null;
+
+	changeWord();
+
+	function changeWord(){
+		$('#accordion .panel-collapse').removeClass('in');
+		$('#form-check label').css('color', '#333');
+		$('#form-check input').css('border-color', '#ccc');
+		$('#write-english').val('')
+		var newRandom = getNumberRandom(lengthList);
+		while(newRandom == oldRandom){
+			newRandom = getNumberRandom(lengthList);
+		}
+		oldRandom =  newRandom;
+		var word = listWord[newRandom];
+		$('#viet-nam-word').html(word.vietnam_word.toUpperCase());
+		$('#help-img img').attr('src', '/static/images/words/' + word.img);
+		$('#viet-sub').html(word.vietname_sub_word.toUpperCase());
+		$('#english-word').html(word.english_word.toUpperCase());
+	}
+	function checkWord(){
+		var result = $('#english-word').html();
+		var keyWord = $('#write-english').val().toUpperCase();
+		if(result == keyWord){
+			$('#form-check label').css('color', 'green');
+			$('#form-check input').css('border-color', 'green');
+		}else{
+			$('#form-check label').css('color', 'red');
+			$('#form-check input').css('border-color', 'red');
+		}
+	}
+
+  function getNumberRandom(length){
+  	var min=0; 
+  	var max = length - 1;  
+  	var random = Math.random() * (+max - +min) + +min;
+  	return Math.floor(random);
+  }
+</script>
