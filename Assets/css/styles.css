@@ -20,3 +20,15 @@ span.error{
 td.action{
 	font-size: 27px;
 }
+div.button-action{
+  text-align: center;
+  position: relative;
+}
+div.button-action .has-learn{
+  position: absolute;
+  left: 15px;
+}
+div.button-action .has-learn2{
+  position: absolute;
+  right: 15px;
+}

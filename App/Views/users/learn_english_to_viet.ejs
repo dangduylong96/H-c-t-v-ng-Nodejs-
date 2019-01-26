@@ -40,7 +40,8 @@
       </div>
     </div>
   </div> 
-  <div class="row" style="text-align: center;">
+  <div class="row button-action">
+  	<button class="has-learn btn btn-success btn-lg" onclick="hasLearn()"><span class="glyphicon glyphicon-ok"></span> Đã thuộc</button>
   	<button class="btn btn-danger btn-lg" onclick="changeWord()"><span class="glyphicon glyphicon-refresh"></span> Đổi từ</button>
   </div>
 </div>
@@ -51,23 +52,38 @@
 
 	changeWord();
 
-	function changeWord(){
-		$('#accordion .panel-collapse').removeClass('in');
-		// $('#accordion .panel-collapse').collapse('hide');
-		var newRandom = getNumberRandom(lengthList);
-		while(newRandom == oldRandom){
-			newRandom = getNumberRandom(lengthList);
+	function hasLearn(){
+		if(listWord.length == 1){
+			alert('Hết từ mới để học!!');
+		}else{
+			listWord.splice(oldRandom, 1);
+			lengthList = listWord.length;
+			changeWord();
 		}
-		oldRandom =  newRandom;
-		var word = listWord[newRandom];
-		$('#english-word').html(word.english_word.toUpperCase());
-		$('#help-img img').attr('src', '/static/images/words/' + word.img);
-		$('#viet-sub').html(word.vietname_sub_word.toUpperCase());
-		$('#viet-nam-word').html(word.vietnam_word.toUpperCase());
+	}
+
+	function changeWord(){
+		if(lengthList != 1 ){
+			$('#accordion .panel-collapse').removeClass('in');
+			// $('#accordion .panel-collapse').collapse('hide');
+			var newRandom = getNumberRandom(lengthList);
+			while(newRandom == oldRandom){
+				newRandom = getNumberRandom(lengthList);
+			}
+			oldRandom =  newRandom;
+			var word = listWord[newRandom];
+			$('#english-word').html(word.english_word.toUpperCase());
+			$('#help-img img').attr('src', '/static/images/words/' + word.img);
+			$('#viet-sub').html(word.vietname_sub_word.toUpperCase());
+			$('#viet-nam-word').html(word.vietnam_word.toUpperCase());
+		}else{
+			alert('Hết từ mới để học!!')
+		} 
 	}
   function getNumberRandom(length){
-  	var min=0; 
-  	var max = length - 1;  
+  	if(length == 0 ) return 0;
+  	var min= 0; 
+  	var max = length;  
   	var random = Math.random() * (+max - +min) + +min;
   	return Math.floor(random);
   }
