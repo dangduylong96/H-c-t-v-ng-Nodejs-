@@ -1,4 +1,8 @@
 <div class="row">
+	<p>Nhấn nút <b>SHIFT</b> để click nhanh nút đã thuộc</p>
+	<p>Nhấn nút <b>/</b> để click nhanh nút đổi từ</p>
+</div>
+<div class="row">
 	<h1 id="viet-nam-word"></h1>
 </div>
 <div class="row">
@@ -46,7 +50,7 @@
 		    <label>Nhập tiếng anh:</label>
 		    <input type="text" class="form-control" id="write-english" autocomplete="off">
 		  </div>
-		  <button type="button" class="btn btn-default" onclick="checkWord()">Check</button>
+		  <button type="submit" class="btn btn-default" onclick="checkWord()">Check</button>
 		</form>
   </div>
   <br>
@@ -109,4 +113,21 @@
   	var random = Math.random() * (+max - +min) + +min;
   	return Math.floor(random);
   }
+
+  $(document).ready(function(){
+  	$('#write-english').focus();
+  	// document.addEventListener('keydown', keyDownQuick, false);
+  	$(document).on('keydown', keyDownQuick);
+  })
+	function keyDownQuick(e){
+		var keyCode = e.keyCode;
+		if(keyCode == 16){
+			hasLearn();
+		}else if(keyCode == 191){
+			changeWord();
+			return false;
+		}
+		return true;
+	}
+
 </script>
