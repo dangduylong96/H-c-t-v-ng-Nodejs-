@@ -2,6 +2,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var randomstring = require("randomstring");
 var userModel = require('../Models/Words');
+var accountModel = require('../Models/Users');
 
 exports.listAction = (req, res) => {
 	res.render('users/index', {path: './list_action'});
@@ -11,8 +12,11 @@ exports.listWord = (req, res) => {
 	var userId = req.session.userId;
 	var listWords = userModel.listWords(userId);
 	listWords.then(data => {
-		res.render('users/index', {path: './list_word', data: data});
-		res.end();
+		var userName = accountModel.getUserName(userId);
+		userName.then(nameData => {
+			res.render('users/index', {path: './list_word', data: data, name: nameData[0].name});
+			res.end();
+		})
 	})
 	.catch(err => {
 		console.log(err);
@@ -107,4 +111,17 @@ exports.learnVietToEnglish = (req, res) => {
 		res.render('users/index', {path: './learn_viet_to_english', arrayData: arrayData});
 		res.end();
 	})
+}
+
+exports.toggleStatusWord = (req, res) => {
+	var userId = req.session.userId;
+	var idWord = req.query.id_word;
+  //toggle status
+	userModel.toggleStatusWord(userId, idWord)
+	.then(data => {
+		var status = data[0].status;
+		userModel.updateStatus(idWord, status)
+		res.end();
+	})
+	
 }

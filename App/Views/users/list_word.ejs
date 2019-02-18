@@ -23,14 +23,15 @@
           <td><img src="/static/images/words/<%- data[i].img %>" with="60" height="60"/></td>
           <% }%>
           <% if(data[i].status == 0){ %>
-          <td style="color: red; font-weight: bold">Ân</td>
+          <td class="status-detail" style="color: red; font-weight: bold">Ẩn</td>
           <% }else {%>
-          <td>Hiện</td>
+          <td class="status-detail">Hiện</td>
           <% }%>
-          <td>Duy Long</td>
+          <td><%- name %></td>
           <td class="action">
             <a href="/user/sua-tu?id=<%- data[i].id %>"><span class="glyphicon glyphicon-pencil"></span></a>
             <a href="/user/xoa-tu?id=<%- data[i].id %>"><span class="glyphicon glyphicon-trash" style="color: red"></span></a>
+            <a class="toggle-status" data-id="<%- data[i].id %>" href="javascript:void(0)"><span class="glyphicon glyphicon-eye-open"></span></a>
           </td>
       </tr>
     <%}%>
@@ -42,4 +43,21 @@
       order: []
     });
 	});
+  //Chuyen trang thai tu
+  $('.toggle-status').click(function(){
+    var idWord = $(this).data('id');
+    var currentStatus = $(this).parent().parent().find('.status-detail');
+    var htmlCurrentStatus = currentStatus.html();
+    if( htmlCurrentStatus == 'Hiện'){
+      currentStatus.css('color', 'red');
+      currentStatus.css('font-weight', 'bold');
+      currentStatus.html('Ẩn');
+    }else{
+      currentStatus.css('color', 'black');
+      currentStatus.css('font-weight', 'normal');
+      currentStatus.html('Hiện');
+    }
+    $.get('/user/chuyen-trang-thai?id_word='+idWord, function(data){
+    })
+  })
 </script>

@@ -75,3 +75,19 @@ exports.getWordForUser = async (userId) => {
 	var excuteResult = await excute(sql)
 	return excuteResult;
 }
+
+exports.toggleStatusWord = async (userId, idWord) => {
+	var sql = `SELECT * FROM word WHERE user_id=${userId} AND id=${idWord}`;
+	var excuteResult = await excute(sql);
+	return excuteResult;
+}
+
+exports.updateStatus = async (idWord, status) => {
+	if(status == 1){
+		status = 0;
+	}else{
+		status = 1;
+	}
+	var sql = `UPDATE word SET status = ${status} WHERE id=${idWord};`;
+	var excuteResult = await excute(sql);
+}

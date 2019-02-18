@@ -35,3 +35,9 @@ exports.checkLogin = async (userName, password) => {
 	var sql = `select id, count(*) as count from users where user_name=${userName} and password='${sha1(password)}' GROUP BY id`;
 	return await excute(sql);
 }
+
+exports.getUserName = async (userId) => {
+	var sql = `SELECT * FROM users WHERE id=${userId} ORDER BY id DESC`;
+	var excuteResult = await excute(sql);
+	return excuteResult;
+}
